@@ -28,6 +28,29 @@ public class ProductService {
     }
 
     public void deleteProductById(long id) {
+        if(this.repository.existsById(id)){
+            this.repository.deleteById(id);
+        }
+        else{
+            throw new EntityNotFoundException("Product not found");
+        }
+    }
+
+    public Product save(Product product){
+        return this.repository.save(product);
+    }
+
+    public void update(long id, Product product) {
+       
+        try{
+            var updateProduct = this.repository.getReferenceById(id);
+            updateProduct.setName(product.getName());
+            updateProduct.setPrice(product.getPrice());
+            this.repository.save(updateProduct);
+        }
+        catch(EntityNotFoundException e){
+            throw new EntityNotFoundException("Product not found");
+        }
         
     }
 
