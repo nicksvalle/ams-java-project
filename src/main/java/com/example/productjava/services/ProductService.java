@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.productjava.dtos.ProductRequest;
+import com.example.productjava.dtos.ProductResponse;
 import com.example.productjava.entities.Product;
+import com.example.productjava.mappers.ProductMapper;
 import com.example.productjava.repositories.ProductRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -36,8 +39,9 @@ public class ProductService {
         }
     }
 
-    public Product save(Product product){
-        return this.repository.save(product);
+    public ProductResponse save(ProductRequest product){
+        var entity = this.repository.save(ProductMapper.toEntity(product));
+        return ProductMapper.toDTO(entity);
     }
 
     public void update(long id, Product product) {

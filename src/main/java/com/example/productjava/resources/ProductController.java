@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.productjava.dtos.ProductRequest;
+import com.example.productjava.dtos.ProductResponse;
 import com.example.productjava.entities.Product;
 import com.example.productjava.services.ProductService;
 
@@ -45,7 +47,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody Product product){
+    public ResponseEntity<ProductResponse> save(@RequestBody ProductRequest product){
         var savedProduct = this.service.save(product);
 
         URI location = ServletUriComponentsBuilder
@@ -54,7 +56,7 @@ public class ProductController {
 
                 .path("/{id}")
 
-                .buildAndExpand(savedProduct.getId())
+                .buildAndExpand(savedProduct.id())
 
                 .toUri();
                 
