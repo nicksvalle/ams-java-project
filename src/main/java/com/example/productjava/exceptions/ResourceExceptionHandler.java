@@ -51,7 +51,7 @@ public class ResourceExceptionHandler {
          .getFieldErrors()
          .forEach( err -> error.addError(err.getDefaultMessage()));
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
     
     }
 }
